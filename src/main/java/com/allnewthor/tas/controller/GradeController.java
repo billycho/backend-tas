@@ -1,19 +1,12 @@
 package com.allnewthor.tas.controller;
 
-import java.util.ArrayList;
-import java.util.List;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
-import org.springframework.web.servlet.ModelAndView;
 
-import com.allnewthor.tas.Person;
-import com.allnewthor.tas.PersonRepository;
 import com.allnewthor.tas.domain.Grade;
 import com.allnewthor.tas.domain.GradeRepository;
 
@@ -22,9 +15,6 @@ import com.allnewthor.tas.domain.GradeRepository;
 public class GradeController {
 	@Autowired
 	private GradeRepository gradeRepository;
-	
-	@Autowired
-	private PersonRepository personRepository;
 	
 	@RequestMapping(value="",method=RequestMethod.GET)
 	public Iterable<Grade> getAll(Model model) {
@@ -36,9 +26,4 @@ public class GradeController {
 	{
 		return gradeRepository.findOne(id);
 	}
-	
-	
-	
-	
-	
 }
