@@ -20,10 +20,6 @@ public class Grade {
 	@Column(name="grade")
 	 private String grade;
 	 
-	public Grade()
-	{
-		
-	}
 	 public Grade(String jobfamily, String grade)
 	 {
 		 this.jobfamily = jobfamily;

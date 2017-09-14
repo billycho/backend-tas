@@ -24,7 +24,6 @@ public class Room {
 	@ManyToOne
 	@JoinColumn(name = "locationid")
 	private Location location;
-//	private Integer location;
 
 	public Integer getRoomId() {
 		return roomId;

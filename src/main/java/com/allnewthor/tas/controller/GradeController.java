@@ -26,13 +26,6 @@ public class GradeController {
 	@Autowired
 	private PersonRepository personRepository;
 	
-	@RequestMapping("/hello11")
-	@ResponseBody
-	public String hello()
-	{
-		return "Hello World";
-	}
-	
 	@RequestMapping(value="",method=RequestMethod.GET)
 	public Iterable<Grade> getAll(Model model) {
 		return gradeRepository.findAll();
