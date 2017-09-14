@@ -20,11 +20,7 @@ public class Grade {
 	@Column(name="grade")
 	 private String grade;
 	 
-	 public Grade(String jobfamily, String grade)
-	 {
-		 this.jobfamily = jobfamily;
-		 this.grade = grade;
-	 }
+	
 	public Integer getGradeid() {
 		return gradeid;
 	}
