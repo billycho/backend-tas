@@ -5,10 +5,12 @@ import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.servlet.ModelAndView;
 
 import com.allnewthor.tas.Person;
 import com.allnewthor.tas.PersonRepository;
@@ -24,7 +26,7 @@ public class GradeController {
 	@Autowired
 	private PersonRepository personRepository;
 	
-	@RequestMapping("/hello")
+	@RequestMapping("/hello11")
 	@ResponseBody
 	public String hello()
 	{
@@ -35,6 +37,12 @@ public class GradeController {
 	public Iterable<Grade> getAll(Model model) {
 		return gradeRepository.findAll();
     }
+	
+	@RequestMapping(value = "/{id}", method = RequestMethod.GET)
+	public Grade getById(@PathVariable int id)
+	{
+		return gradeRepository.findOne(id);
+	}
 	
 	
 	

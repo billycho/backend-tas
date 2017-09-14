@@ -13,41 +13,41 @@ public class Grade {
 	@Id
 	 @GeneratedValue(strategy = GenerationType.AUTO)
 	@Column(name="gradeid")
-	
-	 private Integer GradeID;
+	 private Integer gradeid;
+	 
 	@Column(name="jobfamily")
-	 private String JobFamily;
+	 private String jobfamily;
 	@Column(name="grade")
-	 private String Grade;
+	 private String grade;
 	 
 	public Grade()
 	{
 		
 	}
-	 public Grade(String JobFamily, String Grade)
+	 public Grade(String jobfamily, String grade)
 	 {
-		 this.JobFamily = JobFamily;
-		 this.Grade = Grade;
+		 this.jobfamily = jobfamily;
+		 this.grade = grade;
 	 }
-	 
-	public Integer getGradeID() {
-		return GradeID;
+	public Integer getGradeid() {
+		return gradeid;
 	}
-	public void setGradeID(Integer gradeID) {
-		GradeID = gradeID;
+	public void setGradeid(Integer gradeid) {
+		this.gradeid = gradeid;
 	}
-	public String getJobFamily() {
-		return JobFamily;
+	public String getJobfamily() {
+		return jobfamily;
 	}
-	public void setJobFamily(String jobFamily) {
-		JobFamily = jobFamily;
+	public void setJobfamily(String jobfamily) {
+		this.jobfamily = jobfamily;
 	}
 	public String getGrade() {
-		return Grade;
+		return grade;
 	}
 	public void setGrade(String grade) {
-		Grade = grade;
+		this.grade = grade;
 	}
+	 
 	 
 	
 }
