@@ -8,18 +8,18 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.allnewthor.tas.domain.UserRole;
-import com.allnewthor.tas.domain.UserRoleRepository;
+import com.allnewthor.tas.domain.TasUser;
+import com.allnewthor.tas.domain.TasUserRepository;
 
 @RestController
 @RequestMapping("/users")
-public class UserRoleController {
+public class TasUserController {
 	@Autowired
-	private UserRoleRepository userRoleRepository;
+	private TasUserRepository tasUserRepository;
 	
 	@GetMapping(value="")
-	public Iterable<UserRole> getAll(Model model){
-		return userRoleRepository.findAll();
+	public Iterable<TasUser> getAll(Model model){
+		return tasUserRepository.findAll();
 	}
 	
 //	@PostMapping(value = "/load") 

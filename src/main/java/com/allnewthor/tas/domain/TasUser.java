@@ -10,12 +10,12 @@ import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 
 @Entity
-@Table(name = "UserRole")
-public class UserRole {
+@Table(name = "tasuser")
+public class TasUser {
 	@Id
 	@GeneratedValue( strategy= GenerationType.AUTO )
-	@Column (name = "userroleid")
-	private Integer userRoleId;
+	@Column (name = "tasuserid")
+	private Integer tasUserId;
 	
 	@ManyToOne
 	@JoinColumn (name = "employeeid")
@@ -25,12 +25,12 @@ public class UserRole {
 	@JoinColumn (name = "roleid")
 	private Role role;
 
-	public Integer getUserRoleId() {
-		return userRoleId;
+	public Integer getTasUserId() {
+		return tasUserId;
 	}
 
-	public void setUserRoleId(Integer userRoleId) {
-		this.userRoleId = userRoleId;
+	public void setTasUserId(Integer tasUserId) {
+		this.tasUserId = tasUserId;
 	}
 
 	public Employee getEmployee() {
