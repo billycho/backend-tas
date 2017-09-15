@@ -11,7 +11,7 @@ import javax.persistence.Table;
 @Table(name = "Grade")
 public class Grade {
 	@Id
-	 @GeneratedValue(strategy = GenerationType.AUTO)
+	@GeneratedValue(strategy = GenerationType.AUTO)
 	@Column(name="gradeid")
 	 private Integer gradeid;
 	 
