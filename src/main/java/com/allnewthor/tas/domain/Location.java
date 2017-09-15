@@ -15,7 +15,7 @@ public class Location {
 	@Column(name="locationid")
 	 private Integer locationId;
 	
-	@Column(name="cityname")
+	@Column(name="locationname")
 	 private String cityName;
 
 	public Integer getLocationId() {
