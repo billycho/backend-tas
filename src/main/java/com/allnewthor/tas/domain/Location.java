@@ -15,8 +15,8 @@ public class Location {
 	@Column(name="locationid")
 	 private Integer locationId;
 	
-	@Column(name="cityname")
-	 private String cityName;
+	@Column(name="locationname")
+	 private String locationName;
 
 	public Integer getLocationId() {
 		return locationId;
@@ -26,12 +26,12 @@ public class Location {
 		this.locationId = locationId;
 	}
 
-	public String getCityName() {
-		return cityName;
+	public String getLocationName() {
+		return locationName;
 	}
 
-	public void setCityName(String cityName) {
-		this.cityName = cityName;
+	public void setLocationName(String locationName) {
+		this.locationName = locationName;
 	}
 	
 	

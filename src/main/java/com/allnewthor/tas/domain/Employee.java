@@ -1,11 +1,15 @@
 package com.allnewthor.tas.domain;
 
+import java.util.Set;
+
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
+import javax.persistence.JoinTable;
+import javax.persistence.ManyToMany;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 
@@ -44,13 +48,20 @@ public class Employee {
 	private String accountPassword;
 	
 	@Column (name = "salt")
-	private String salt;
+	private String salt;	
 	
-	@Column (name = "jwthash")
-	private String jwtHash;
+	@ManyToMany
+	@JoinTable(
+	 name="tasuser",
+	 joinColumns = @JoinColumn(name = "employeeid", referencedColumnName = "employeeid"),
+	 inverseJoinColumns = @JoinColumn(name = "roleid", referencedColumnName = "roleid")
+	)	
 	
-	@Column (name = "expirydatetime")
-	private String expiryDateTime;
+	private Set<Role> roles;
+	
+	public Employee() {
+		super();
+	}
 
 	public Integer getEmployeeId() {
 		return employeeId;
@@ -131,20 +142,12 @@ public class Employee {
 	public void setSalt(String salt) {
 		this.salt = salt;
 	}
-
-	public String getJwtHash() {
-		return jwtHash;
+	
+	public Set<Role> getRoles() {
+		return roles;
 	}
 
-	public void setJwtHash(String jwtHash) {
-		this.jwtHash = jwtHash;
-	}
-
-	public String getExpiryDateTime() {
-		return expiryDateTime;
-	}
-
-	public void setExpiryDateTime(String expiryDateTime) {
-		this.expiryDateTime = expiryDateTime;
+	public void setRoles(Set<Role> roles) {
+		this.roles = roles;
 	}
 }

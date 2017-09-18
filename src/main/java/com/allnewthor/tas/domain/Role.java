@@ -1,10 +1,13 @@
 package com.allnewthor.tas.domain;
 
+import java.util.Set;
+
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.ManyToMany;
 import javax.persistence.Table;
 
 @Entity
@@ -17,6 +20,13 @@ public class Role {
 	
 	@Column(name="rolename")
 	private String roleName;
+	
+//	@ManyToMany(mappedBy="roles")
+//	private Set<Employee> employees;
+	
+	public Role() {
+		super();
+	}
 
 	public Integer getRoleId() {
 		return roleId;
@@ -33,4 +43,13 @@ public class Role {
 	public void setRoleName(String roleName) {
 		this.roleName = roleName;
 	}
+	
+//	public Set<Employee> getEmployees() {
+//		return employees;
+//	}
+//
+//	public void setEmployees(Set<Employee> employees) {
+//		this.employees = employees;
+//	}
+//	
 }
