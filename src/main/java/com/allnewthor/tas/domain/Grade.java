@@ -20,6 +20,7 @@ public class Grade {
 	@Column(name="grade")
 	 private String grade;
 	 
+	
 	public Integer getGradeid() {
 		return gradeid;
 	}

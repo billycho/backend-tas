@@ -1,5 +1,7 @@
 package com.allnewthor.tas.domain;
 
+import java.io.Serializable;
+
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -9,7 +11,7 @@ import javax.persistence.Table;
 
 @Entity
 @Table(name = "Location")
-public class Location {
+public class Location implements Serializable{
 	@Id
 	@GeneratedValue(strategy = GenerationType.AUTO)
 	@Column(name="locationid")
@@ -26,11 +28,19 @@ public class Location {
 		this.locationId = locationId;
 	}
 
+<<<<<<< HEAD
 	public String getLocationName() {
 		return locationName;
 	}
 
 	public void setLocationName(String locationName) {
+=======
+	public String getlocationName() {
+		return locationName;
+	}
+
+	public void setlocationName(String locationName) {
+>>>>>>> feature-coursename
 		this.locationName = locationName;
 	}
 	
