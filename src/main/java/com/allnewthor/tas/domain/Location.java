@@ -28,19 +28,12 @@ public class Location implements Serializable{
 		this.locationId = locationId;
 	}
 
-<<<<<<< HEAD
 	public String getLocationName() {
 		return locationName;
 	}
 
-	public void setLocationName(String locationName) {
-=======
-	public String getlocationName() {
-		return locationName;
-	}
 
 	public void setlocationName(String locationName) {
->>>>>>> feature-coursename
 		this.locationName = locationName;
 	}
 	
