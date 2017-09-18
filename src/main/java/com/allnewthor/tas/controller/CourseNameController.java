@@ -9,6 +9,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.servlet.ModelAndView;
 
@@ -25,9 +26,9 @@ public class CourseNameController {
 //	http://localhost:8080/coursenames/all?page=0&size=3&sort=coursename
 	
 	@RequestMapping(value="/all", method = RequestMethod.GET)
-	Page<CourseName> courseNamesPageable(Pageable pageable)
+	Iterable<CourseName> courseNamesPageable(Pageable pageable)
 	{
-		return courseNameRepository.findAll(pageable);
+		return courseNameRepository.findAll();
 	}
 		
 	
@@ -49,6 +50,31 @@ public class CourseNameController {
 	{
 		courseNameRepository.delete(id);
 	}
+	
+	@PostMapping(value = "/update")
+	public void update(@RequestBody final CourseName updatedcoursename)
+	{
+		System.out.println(updatedcoursename.getCoursename());
+		CourseName coursename = courseNameRepository.findOne(updatedcoursename.getCoursenameid());
+		coursename.setCoursename(updatedcoursename.getCoursename());
+		coursename.setCoursetype(updatedcoursename.getCoursetype());
+		coursename.setCourselevel(updatedcoursename.getCourselevel());
+		
+		courseNameRepository.save(coursename); 
+		
+	}
+	
+//	@PostMapping(value="update")
+//	public void update()
+//	{
+//		CourseName courseName = courseNameRepository.findOne(16);
+//		courseName.setCoursename("asda");
+//		courseName.setCourselevel(12);
+//		courseName.setCoursetype("asda");
+//		
+//	}
+	
+	
 	
 	
 	

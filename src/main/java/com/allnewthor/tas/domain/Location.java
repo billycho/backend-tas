@@ -1,5 +1,7 @@
 package com.allnewthor.tas.domain;
 
+import java.io.Serializable;
+
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -9,14 +11,14 @@ import javax.persistence.Table;
 
 @Entity
 @Table(name = "Location")
-public class Location {
+public class Location implements Serializable{
 	@Id
 	@GeneratedValue(strategy = GenerationType.AUTO)
 	@Column(name="locationid")
 	 private Integer locationId;
 	
-	@Column(name="cityname")
-	 private String cityName;
+	@Column(name="locationname")
+	 private String locationName;
 
 	public Integer getLocationId() {
 		return locationId;
@@ -26,12 +28,12 @@ public class Location {
 		this.locationId = locationId;
 	}
 
-	public String getCityName() {
-		return cityName;
+	public String getlocationName() {
+		return locationName;
 	}
 
-	public void setCityName(String cityName) {
-		this.cityName = cityName;
+	public void setlocationName(String locationName) {
+		this.locationName = locationName;
 	}
 	
 	
