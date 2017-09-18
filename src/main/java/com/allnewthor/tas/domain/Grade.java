@@ -19,6 +19,7 @@ public class Grade {
 	 private String jobfamily;
 	@Column(name="grade")
 	 private String grade;
+	 
 	public Integer getGradeid() {
 		return gradeid;
 	}
