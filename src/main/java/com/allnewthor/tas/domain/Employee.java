@@ -1,7 +1,10 @@
 package com.allnewthor.tas.domain;
 
 import java.util.List;
+<<<<<<< HEAD
 import java.util.Set;
+=======
+>>>>>>> feature-connectdb-role-employee_w_1-many
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
