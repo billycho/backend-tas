@@ -1,5 +1,6 @@
 package com.allnewthor.tas.domain;
 
+import java.util.List;
 import java.util.Set;
 
 import javax.persistence.Column;
@@ -57,7 +58,7 @@ public class Employee {
 	 inverseJoinColumns = @JoinColumn(name = "roleid", referencedColumnName = "roleid")
 	)	
 	
-	private Set<Role> roles;
+	private List<Role> roles;
 	
 	public Employee() {
 		super();
@@ -143,11 +144,11 @@ public class Employee {
 		this.salt = salt;
 	}
 	
-	public Set<Role> getRoles() {
+	public List<Role> getRoles() {
 		return roles;
 	}
 
-	public void setRoles(Set<Role> roles) {
+	public void setRoles(List<Role> roles) {
 		this.roles = roles;
 	}
 }
