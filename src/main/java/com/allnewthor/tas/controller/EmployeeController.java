@@ -30,7 +30,7 @@ public class EmployeeController {
 	@Autowired
 	private RoleRepository roleRepository;
 	
-	@GetMapping(value="all")
+	@GetMapping(value="")
 	public List<Employee> getAll(Model model){
 		return employeeRepository.findAll();
 	}
@@ -48,11 +48,6 @@ public class EmployeeController {
 	        }
 	     }
 		return result;
-	}
-	
-	@GetMapping(value="")
-	public Page<Employee> getAll(Pageable pageable){
-		return employeeRepository.findAll(pageable);
 	}
 	
 	@GetMapping (value ="/{id}")
