@@ -1,7 +1,9 @@
 package com.allnewthor.tas.controller;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
+import java.util.function.Predicate;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
@@ -29,8 +31,23 @@ public class EmployeeController {
 	private RoleRepository roleRepository;
 	
 	@GetMapping(value="all")
-	public Iterable<Employee> getAll(Model model){
+	public List<Employee> getAll(Model model){
 		return employeeRepository.findAll();
+	}
+	
+	@GetMapping(value="/users/all")
+	public List<Employee> getAllUsers(Model model){
+		return isUser(employeeRepository.findAll(),employee->employee.hasRoles());
+	}
+	
+	private List<Employee> isUser(List<Employee> employees, Predicate<Employee> p) {
+		List<Employee> result = new ArrayList<Employee>();
+		for(Employee employee: employees) {
+	        if(p.test(employee)) {
+	          result.add(employee);
+	        }
+	     }
+		return result;
 	}
 	
 	@GetMapping(value="")

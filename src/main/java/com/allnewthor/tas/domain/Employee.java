@@ -149,4 +149,13 @@ public class Employee {
 	public void setRoles(List<Role> roles) {
 		this.roles = roles;
 	}
+	
+	public boolean hasRoles() {
+		if (getRoles().size()>0) {
+			return true; 
+		}
+		else {
+			return false;
+		}
+	}
 }
