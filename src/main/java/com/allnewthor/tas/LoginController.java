@@ -28,22 +28,24 @@ public class LoginController {
 		Employee employee = new Employee();
 		employee = employeeRepository.findByAccountName(loginRequest.getUsername());
 		
-		List<Role> roles = employee.getRoles();
-		int biggest = 0;
-		
-		System.out.println(roles.size());
-		
-		for(int i = roles.size()-1;i>=0;i--)
-		{
-		   loginResponse.setRole(roles.get(i).getRoleId());
-		}
 		
 		
-		if(loginRequest.getPassword().equals(employee.getAccountPassword()))
+		
+		if(employee!= null && loginRequest.getPassword().equals(employee.getAccountPassword()))
 		{
 			loginResponse.setName(employee.getAccountName());
 			loginResponse.setEmployeeId(1);
 			loginResponse.setStatus(1);
+			
+			List<Role> roles = employee.getRoles();
+			int biggest = 0;
+			
+			//System.out.println(roles.size());
+			
+			for(int i = roles.size()-1;i>=0;i--)
+			{
+			   loginResponse.setRole(roles.get(i).getRoleId());
+			}
 		
 		}
 		else
