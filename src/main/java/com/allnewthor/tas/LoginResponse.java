@@ -1,5 +1,7 @@
 package com.allnewthor.tas;
 
+import com.allnewthor.tas.domain.Role;
+
 public class LoginResponse {
 	private Integer employeeId;
 	private Integer status;
