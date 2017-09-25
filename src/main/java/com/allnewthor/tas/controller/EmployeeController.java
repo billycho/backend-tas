@@ -35,7 +35,7 @@ public class EmployeeController {
 		return employeeRepository.findAll();
 	}
 	
-	@GetMapping(value="/users/all")
+	@GetMapping(value="/users")
 	public List<Employee> getAllUsers(Model model){
 		return isUser(employeeRepository.findAll(),employee->employee.hasRoles());
 	}
