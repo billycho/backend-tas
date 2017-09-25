@@ -1,4 +1,4 @@
-package com.allnewthor.tas;
+package com.allnewthor.tas.controller;
 
 import org.springframework.beans.factory.annotation.Autowired;
 
