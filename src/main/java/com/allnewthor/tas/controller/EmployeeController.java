@@ -5,9 +5,9 @@ import java.util.List;
 import java.util.Map;
 import java.util.function.Predicate;
 
+import org.json.*;
+
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.data.domain.Page;
-import org.springframework.data.domain.Pageable;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -75,5 +75,40 @@ public class EmployeeController {
 		employeeRepository.save(employee);
 		
 		return employeeRepository.findOne(employee.getEmployeeId());
+	}
+	
+	@PostMapping (value = "/update")
+	public Employee update(
+			@RequestBody String body
+			) throws JSONException { 
+		
+		JSONObject obj = new JSONObject(body);
+		
+		Integer id = obj.getInt("employeeId");
+		boolean active = obj.getBoolean("active");
+		
+		JSONArray arr = obj.getJSONArray("roles");
+		
+		List<Role> roles = new ArrayList<Role>();
+		
+		for(int i= 0; i < arr.length();i++)
+		{
+			JSONObject arrobj = arr.getJSONObject(i);
+			
+			Role role = new Role();
+			role.setRoleId(arrobj.getInt("roleId"));
+			role.setRoleName(arrobj.getString("roleName"));
+			
+			roles.add(role);
+		}
+		
+		
+		Employee employee = new Employee();
+		employee = employeeRepository.findOne(id);
+		employee.setRoles(roles);
+		employee.setActive(active);
+		employeeRepository.save(employee);
+		
+		return employeeRepository.findOne(id);
 	}
 }
