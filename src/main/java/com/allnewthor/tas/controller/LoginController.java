@@ -64,13 +64,13 @@ public class LoginController {
 		return  loginResponse;
 	}
 	
-	@RequestMapping(path="/boot", method=RequestMethod.GET)
-	@ResponseBody
-	public String boot() throws NoSuchAlgorithmException{
-		
-		return encrpyt("Sanur_2017!ewusa");
-	}
-	
+//	@RequestMapping(path="/boot", method=RequestMethod.GET)
+//	@ResponseBody
+//	public String boot() throws NoSuchAlgorithmException{
+//		
+//		return encrpyt("Sanur_2017!ewusa");
+//	}
+//	
 	
 	public String encrpyt(String password) throws NoSuchAlgorithmException
 	{
