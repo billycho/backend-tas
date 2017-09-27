@@ -11,6 +11,9 @@ import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 
+import org.json.JSONException;
+import org.json.JSONObject;
+
 @Entity
 @Table (name = "trainingperiod")
 public class TrainingPeriod {
@@ -42,11 +45,15 @@ public class TrainingPeriod {
   @Column(name = "updatedate")
   private String updatedDate;
   
- 
+  @Column(name = "openenrollment")
+  private boolean openEnrollment;
 
-@Column(name = "periodical")
+  @Column(name = "periodical")
   private boolean periodical;
   
+  public TrainingPeriod() {
+	  super();
+  }
   
   public Integer getTrainingPeriodId() {
 	return trainingPeriodId;
@@ -102,6 +109,14 @@ public Employee getUpdaterID() {
 
 public void setUpdaterID(Employee updaterID) {
 	this.updaterID = updaterID;
+}
+
+public boolean isOpenEnrollment() {
+	return openEnrollment;
+}
+
+public void setOpenEnrollment(boolean openEnrollment) {
+	this.openEnrollment = openEnrollment;
 }
 
 public boolean isPeriodical() {

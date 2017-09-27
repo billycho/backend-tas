@@ -9,6 +9,9 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.Table;
 
+import org.json.JSONException;
+import org.json.JSONObject;
+
 @Entity
 @Table(name = "Location")
 public class Location implements Serializable{
@@ -19,6 +22,9 @@ public class Location implements Serializable{
 	
 	@Column(name="locationname")
 	 private String locationName;
+	public Location() {
+		super();
+	}
 
 	public Integer getLocationId() {
 		return locationId;

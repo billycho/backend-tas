@@ -16,6 +16,8 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.allnewthor.tas.domain.Course;
+import com.allnewthor.tas.domain.CourseParticipant;
 import com.allnewthor.tas.domain.Employee;
 import com.allnewthor.tas.domain.EmployeeRepository;
 import com.allnewthor.tas.domain.Role;
@@ -53,6 +55,11 @@ public class EmployeeController {
 	@GetMapping (value ="/{id}")
 	public Employee getById(@PathVariable("id") Integer id){
 		return employeeRepository.findOne(id);
+	}
+	
+	@GetMapping (value ="/{id}/courses")
+	public List<CourseParticipant> getCourseParticipation(@PathVariable("id") Integer id){
+		return employeeRepository.findOne(id).getCourseParticipant();
 	}
 	
 	@PostMapping (value = "/addrole")

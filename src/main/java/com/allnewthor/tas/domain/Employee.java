@@ -1,8 +1,12 @@
 package com.allnewthor.tas.domain;
 
+import java.util.ArrayList;
 import java.util.List;
+
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
@@ -10,7 +14,10 @@ import javax.persistence.JoinColumn;
 import javax.persistence.JoinTable;
 import javax.persistence.ManyToMany;
 import javax.persistence.ManyToOne;
+import javax.persistence.OneToMany;
 import javax.persistence.Table;
+
+import com.fasterxml.jackson.annotation.JsonIgnore;
 
 @Entity
 @Table (name = "Employee")
@@ -55,8 +62,11 @@ public class Employee {
 	 joinColumns = @JoinColumn(name = "employeeid", referencedColumnName = "employeeid"),
 	 inverseJoinColumns = @JoinColumn(name = "roleid", referencedColumnName = "roleid")
 	)	
-	
 	private List<Role> roles;
+	
+	
+	@OneToMany(mappedBy="employee", fetch = FetchType.LAZY, cascade = CascadeType.MERGE)
+	private List<CourseParticipant> courseParticipant ;
 	
 	public Employee() {
 		super();
@@ -158,4 +168,21 @@ public class Employee {
 			return false;
 		}
 	}
+	
+	@JsonIgnore
+	public List<CourseParticipant> getCourseParticipant() {
+		return courseParticipant;
+	}
+
+	public void setCourseParticipant(List<CourseParticipant> courseParticipant) {
+		this.courseParticipant = courseParticipant;
+	}
+
+	public void addCourseParticipant(CourseParticipant courseParticipant) {
+		if(this.courseParticipant.size()<=0) {
+			this.courseParticipant = new ArrayList<CourseParticipant>();
+		}
+		this.courseParticipant.add(courseParticipant);
+	}
+	
 }

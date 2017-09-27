@@ -7,6 +7,9 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.Table;
 
+import org.json.JSONException;
+import org.json.JSONObject;
+
 @Entity
 @Table(name = "Grade")
 public class Grade {
@@ -20,7 +23,10 @@ public class Grade {
 	@Column(name="grade")
 	 private String grade;
 	 
-	
+	public Grade() {
+		super();
+	}
+
 	public Integer getGradeid() {
 		return gradeid;
 	}

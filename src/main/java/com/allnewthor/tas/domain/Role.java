@@ -10,6 +10,9 @@ import javax.persistence.Id;
 //import javax.persistence.ManyToMany;
 import javax.persistence.Table;
 
+import org.json.JSONException;
+import org.json.JSONObject;
+
 @Entity
 @Table(name = "Role")
 public class Role {
