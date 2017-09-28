@@ -34,11 +34,11 @@ public class LoginController {
 		employee = employeeRepository.findByAccountName(loginRequest.getUsername());
 		
 	
-		
+		System.out.println(encrpyt(loginRequest.getPassword() + employee.getSalt()));
 		if(employee!= null && encrpyt(loginRequest.getPassword() + employee.getSalt()).equals(employee.getAccountPassword()))
 		{
 			loginResponse.setName(employee.getAccountName());
-			loginResponse.setEmployeeId(1);
+			loginResponse.setEmployeeId(employee.getEmployeeId());
 			loginResponse.setStatus(1);
 			
 			List<Role> roles = employee.getRoles();
