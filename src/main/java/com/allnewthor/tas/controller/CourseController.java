@@ -68,14 +68,17 @@ public class CourseController {
 			) {
 		Course course = new Course();
 		course = this.courseRepository.findOne(courseid);
+		
 		List<CourseSchedule> temp = new ArrayList<CourseSchedule>();
 		temp = this.courseScheduleRepository.findAll();
+		
+		List<CourseSchedule> result = new ArrayList<CourseSchedule>();
 		for (int i = 0; i < temp.size(); i++) {
-			if(temp.get(i).getCourse() !=course) {
-				temp.remove(i);
+			if(temp.get(i).getCourse() ==course) {
+				result.add(temp.get(i));
 			}
 		}
-		return temp;
+		return result;
 	}
 	
 	@PostMapping(value="/create")

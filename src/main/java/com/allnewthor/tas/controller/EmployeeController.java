@@ -58,8 +58,20 @@ public class EmployeeController {
 	}
 	
 	@GetMapping (value ="/{id}/courses")
-	public List<CourseParticipant> getCourseParticipation(@PathVariable("id") Integer id){
+	public List<CourseParticipant> getCourses(@PathVariable("id") Integer id){
 		return employeeRepository.findOne(id).getCourseParticipant();
+	}
+	@GetMapping (value ="/{id}/courses/bcc")
+	public List<CourseParticipant> getBCCCourse(@PathVariable("id") Integer id){
+		List<CourseParticipant> result = new ArrayList<CourseParticipant>();
+		List<CourseParticipant> temp = new ArrayList<CourseParticipant>();	
+		temp = employeeRepository.findOne(id).getCourseParticipant();
+		for (int i = 0; i <temp.size(); i++) {
+			if (temp.get(i).getCourse().getCoursename().getCoursetype().equals("BCC")) {
+				result.add(temp.get(i));
+			}
+		}
+		return result;
 	}
 	
 	@PostMapping (value = "/addrole")
