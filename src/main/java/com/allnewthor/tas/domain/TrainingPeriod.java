@@ -42,13 +42,25 @@ public class TrainingPeriod {
   @Column(name = "updatedate")
   private String updatedDate;
   
+  
  
 
 @Column(name = "periodical")
   private boolean periodical;
+
+@Column(name = "openenrollment")
+ private boolean openenrollment;
   
   
-  public Integer getTrainingPeriodId() {
+  public boolean isOpenenrollment() {
+	return openenrollment;
+}
+
+public void setOpenenrollment(boolean openenrollment) {
+	this.openenrollment = openenrollment;
+}
+
+public Integer getTrainingPeriodId() {
 	return trainingPeriodId;
 }
 
