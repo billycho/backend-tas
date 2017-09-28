@@ -46,6 +46,10 @@ public class Course {
 	@OneToMany(mappedBy="course",fetch = FetchType.LAZY, cascade = CascadeType.MERGE)
 	private List<CourseParticipant> courseParticipant;
 	
+	@OneToMany( targetEntity=CourseSchedule.class, fetch = FetchType.LAZY )
+	@JoinColumn(name = "coursescheduleid")
+	private List<CourseSchedule> courseSchedule;
+	
 	public Course() {
 		super();
 	}
@@ -112,5 +116,13 @@ public class Course {
 
 	public void setCourseParticipant(List<CourseParticipant> courseParticipant) {
 		this.courseParticipant = courseParticipant;
+	}
+	
+	public List<CourseSchedule> getCourseSchedule() {
+		return courseSchedule;
+	}
+
+	public void setCourseSchedule(List<CourseSchedule> courseSchedule) {
+		this.courseSchedule = courseSchedule;
 	}
 }

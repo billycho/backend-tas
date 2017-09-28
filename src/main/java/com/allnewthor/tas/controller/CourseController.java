@@ -1,6 +1,5 @@
 package com.allnewthor.tas.controller;
 
-import java.lang.reflect.Array;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -20,6 +19,8 @@ import com.allnewthor.tas.domain.CourseName;
 import com.allnewthor.tas.domain.CourseNameRepository;
 import com.allnewthor.tas.domain.CourseParticipant;
 import com.allnewthor.tas.domain.CourseRepository;
+import com.allnewthor.tas.domain.CourseSchedule;
+import com.allnewthor.tas.domain.CourseScheduleRepository;
 import com.allnewthor.tas.domain.Employee;
 import com.allnewthor.tas.domain.EmployeeRepository;
 import com.allnewthor.tas.domain.TrainingPeriod;
@@ -39,6 +40,9 @@ public class CourseController {
 	
 	@Autowired
 	private CourseNameRepository courseNameRepository;
+	
+	@Autowired
+	private CourseScheduleRepository courseScheduleRepository;
 
 	@GetMapping(value="")
 	public List<Course> getAll(Model model){
@@ -49,6 +53,7 @@ public class CourseController {
 	public Course getById(@PathVariable("id")Integer id){
 		return courseRepository.findOne(id);
 	}
+	
 	@GetMapping(value = "/{id}/participants")
 	public List<CourseParticipant> getParticipant(
 			@PathVariable("id")Integer id
@@ -56,6 +61,23 @@ public class CourseController {
 
 		return courseRepository.findOne(id).getCourseParticipant();
 	}
+	
+	@GetMapping(value = "/{id}/schedule")
+	public List<CourseSchedule> getSchedule(
+			@PathVariable("id")Integer courseid
+			) {
+		Course course = new Course();
+		course = this.courseRepository.findOne(courseid);
+		List<CourseSchedule> temp = new ArrayList<CourseSchedule>();
+		temp = this.courseScheduleRepository.findAll();
+		for (int i = 0; i < temp.size(); i++) {
+			if(temp.get(i).getCourse() !=course) {
+				temp.remove(i);
+			}
+		}
+		return temp;
+	}
+	
 	@PostMapping(value="/create")
 	public Course create(
 			@RequestBody String body
