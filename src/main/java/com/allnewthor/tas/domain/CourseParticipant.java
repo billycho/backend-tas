@@ -1,8 +1,5 @@
 package com.allnewthor.tas.domain;
 
-import java.io.Serializable;
-
-import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -14,7 +11,7 @@ import javax.persistence.Table;
 
 @Entity
 @Table(name="courseparticipant")
-public class CourseParticipant implements Serializable{
+public class CourseParticipant {
 	@Id
 	@GeneratedValue(strategy = GenerationType.AUTO)
 	@Column(name="courseparticipantid")

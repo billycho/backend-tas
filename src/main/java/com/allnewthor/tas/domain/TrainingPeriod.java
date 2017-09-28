@@ -45,9 +45,6 @@ public class TrainingPeriod {
   
   @Column(name = "updatedate")
   private String updatedDate;
-  
-  @Column(name = "openenrollment")
-  private boolean openEnrollment;
 
   @Column(name = "periodical")
   private boolean periodical;
@@ -121,14 +118,6 @@ public Employee getUpdaterID() {
 
 public void setUpdaterID(Employee updaterID) {
 	this.updaterID = updaterID;
-}
-
-public boolean isOpenEnrollment() {
-	return openEnrollment;
-}
-
-public void setOpenEnrollment(boolean openEnrollment) {
-	this.openEnrollment = openEnrollment;
 }
 
 public boolean isPeriodical() {
