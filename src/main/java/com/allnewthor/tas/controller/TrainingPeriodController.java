@@ -7,6 +7,7 @@ import org.json.JSONObject;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -29,6 +30,11 @@ public class TrainingPeriodController {
 	@GetMapping(value="")
 	public List<TrainingPeriod> getAll(Model model){
 		return periodRepository.findAll();
+	}
+	
+	@GetMapping(value="/{id}")
+	public TrainingPeriod getById(@PathVariable ("id")Integer id){
+		return periodRepository.findOne(id);
 	}
 	
 	@PostMapping (value = "/add")

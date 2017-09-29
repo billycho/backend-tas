@@ -74,6 +74,20 @@ public class EmployeeController {
 		return result;
 	}
 	
+	@GetMapping (value ="/{id}/courses/{coursenameid}")
+	public List<CourseParticipant> getBCCCourse(@PathVariable("id") Integer id,
+			@PathVariable ("coursenameid")Integer coursenameid){
+		List<CourseParticipant> result = new ArrayList<CourseParticipant>();
+		List<CourseParticipant> temp = new ArrayList<CourseParticipant>();	
+		temp = employeeRepository.findOne(id).getCourseParticipant();
+		for (int i = 0; i <temp.size(); i++) {
+			if (temp.get(i).getCourse().getCoursename().getCoursenameid()==coursenameid) {
+				result.add(temp.get(i));
+			}
+		}
+		return result;
+	}
+	
 	@PostMapping (value = "/addrole")
 	public Employee postRole(
 			@RequestBody Map<String,String> tasuser
