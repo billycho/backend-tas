@@ -7,5 +7,5 @@ import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
 
 public interface CourseScheduleRepository extends JpaRepository<CourseSchedule,Integer>{
-
+	CourseSchedule findBycourse (Course id);
 }

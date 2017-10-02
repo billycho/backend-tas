@@ -118,6 +118,7 @@ public class Course {
 		this.courseParticipant = courseParticipant;
 	}
 	
+	@JsonIgnore
 	public List<CourseSchedule> getCourseSchedule() {
 		return courseSchedule;
 	}

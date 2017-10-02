@@ -18,6 +18,7 @@ import com.allnewthor.tas.domain.Course;
 import com.allnewthor.tas.domain.CourseName;
 import com.allnewthor.tas.domain.CourseNameRepository;
 import com.allnewthor.tas.domain.CourseParticipant;
+import com.allnewthor.tas.domain.CourseParticipantRepository;
 import com.allnewthor.tas.domain.CourseRepository;
 import com.allnewthor.tas.domain.CourseSchedule;
 import com.allnewthor.tas.domain.CourseScheduleRepository;
@@ -44,6 +45,8 @@ public class CourseController {
 	@Autowired
 	private CourseScheduleRepository courseScheduleRepository;
 
+	@Autowired
+	private CourseParticipantRepository courseParticipantRepository;
 	@GetMapping(value="")
 	public List<Course> getAll(Model model){
 		return courseRepository.findAll();
@@ -55,11 +58,18 @@ public class CourseController {
 	}
 	
 	@GetMapping(value = "/{id}/participants")
-	public List<CourseParticipant> getParticipant(
+	public List<Employee> getParticipant(
 			@PathVariable("id")Integer id
 			) {
-
-		return courseRepository.findOne(id).getCourseParticipant();
+		
+		List<Employee> employeeList = new ArrayList<Employee>();
+		for(int i = 0;i< courseRepository.findOne(id).getCourseParticipant().size();i++)
+		{
+			employeeList.add(courseRepository.findOne(id).getCourseParticipant().get(i).getEmployee());
+		}
+		
+		
+		return employeeList;
 	}
 	
 	@GetMapping(value = "/{id}/schedule")
@@ -68,17 +78,14 @@ public class CourseController {
 			) {
 		Course course = new Course();
 		course = this.courseRepository.findOne(courseid);
-		
 		List<CourseSchedule> temp = new ArrayList<CourseSchedule>();
 		temp = this.courseScheduleRepository.findAll();
-		
-		List<CourseSchedule> result = new ArrayList<CourseSchedule>();
 		for (int i = 0; i < temp.size(); i++) {
-			if(temp.get(i).getCourse() ==course) {
-				result.add(temp.get(i));
+			if(temp.get(i).getCourse() !=course) {
+				temp.remove(i);
 			}
 		}
-		return result;
+		return temp;
 	}
 	
 	@PostMapping(value="/create")
@@ -146,4 +153,54 @@ public class CourseController {
 		
 		return this.employeeRepository.findOne(participant.getEmployeeId());
 		}
+	
+	@GetMapping(value = "/{id}/period")
+	public List<CourseSchedule> getCourse(@PathVariable("id")Integer periodid) {
+		
+		TrainingPeriod period = trainingPeriodRepository.findOne(periodid);
+		List<Course> courseList = courseRepository.findBytrainingPeriod(period);
+		Course a = courseRepository.findOne(15);
+		CourseSchedule courseScheduleList1 =  courseScheduleRepository.findBycourse(a);
+		List<CourseSchedule> courseScheduleList = new ArrayList<CourseSchedule>();
+		
+		for(int i = 0; i<courseList.size(); i++)
+		{
+			CourseSchedule newSchedule =  courseScheduleRepository.findBycourse(courseList.get(i));
+			courseScheduleList.add(newSchedule);
+		}
+		
+		System.out.println(courseScheduleList.size());
+//		Course course = new Course();
+//		course = this.courseRepository.findOne(courseid);
+//		List<CourseSchedule> temp = new ArrayList<CourseSchedule>();
+//		temp = this.courseScheduleRepository.findAll();
+//		for (int i = 0; i < temp.size(); i++) {
+//			if(temp.get(i).getCourse() !=course) {
+//				temp.remove(i);
+//			}
+//		}
+		
+		return courseScheduleList;
+	}
+	
+	@PostMapping (value = "/{id}/deleteparticipant")
+	public Integer deleteEmployee(@PathVariable("id")Integer courseId,@RequestBody String body) throws JSONException 
+	{
+		JSONObject obj = new JSONObject(body);
+	
+		Integer employeeId = obj.getInt("employeeId");
+		Course course = courseRepository.findOne(courseId);
+		Employee employee = employeeRepository.findOne(employeeId);
+		
+		List<CourseParticipant> oldEnrolled = courseParticipantRepository.findByEmployeeAndCourse(employee, course);
+		courseParticipantRepository.delete(oldEnrolled);
+//		EligibleParticipant newEligible = new EligibleParticipant();
+//		newEligible.setEmployee(employee);
+//		newEligible.setTrainingPeriod(trainingPeriod);
+		
+		//eligibleRepository.save(newEligible);
+		
+		return 200;
+	}
+	
 }

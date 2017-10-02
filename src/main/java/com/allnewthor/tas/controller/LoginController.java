@@ -24,7 +24,7 @@ public class LoginController {
 	private EmployeeRepository employeeRepository;
 	
 	
-	@RequestMapping(path="/create", method=RequestMethod.POST)
+	@RequestMapping(path="/authenticate", method=RequestMethod.POST)
 	@ResponseBody
 	public LoginResponse authenticate(@RequestBody final LoginRequest loginRequest) throws NoSuchAlgorithmException{
 		
@@ -35,6 +35,18 @@ public class LoginController {
 		
 	
 		System.out.println(encrpyt(loginRequest.getPassword() + employee.getSalt()));
+		
+		List<Employee> e = employeeRepository.findAll();
+		
+//		for(int i = 0;i<e.size();i++)
+//		{
+//			Employee a = e.get(i);
+//			a.setAccountPassword("1234" + a.getSalt());
+//			
+//			employeeRepository.save(a);
+//		}
+		
+		
 		if(employee!= null && encrpyt(loginRequest.getPassword() + employee.getSalt()).equals(employee.getAccountPassword()))
 		{
 			loginResponse.setName(employee.getAccountName());
@@ -42,14 +54,20 @@ public class LoginController {
 			loginResponse.setStatus(1);
 			
 			List<Role> roles = employee.getRoles();
-			int biggest = 0;
+			int smallest = 5;
 			
 			//System.out.println(roles.size());
 			
-			for(int i = roles.size()-1;i>=0;i--)
+			for(int i = 0;i<roles.size();i++)
 			{
-			   loginResponse.setRole(roles.get(i).getRoleId());
+			   if(roles.get(i).getRoleId() < smallest)
+			   {
+				   smallest = roles.get(i).getRoleId();
+			   }
+			   
 			}
+			
+			loginResponse.setRole(smallest);
 		
 		}
 		else
