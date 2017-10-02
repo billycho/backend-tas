@@ -1,17 +1,17 @@
 package com.allnewthor.tas.controller;
 
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
-import org.springframework.web.servlet.ModelAndView;
 
 import com.allnewthor.tas.domain.CourseName;
 import com.allnewthor.tas.domain.CourseNameRepository;
@@ -30,12 +30,23 @@ public class CourseNameController {
 	{
 		return courseNameRepository.findAll();
 	}
+	
+	@RequestMapping(value="", method = RequestMethod.GET)
+	List<CourseName> courseNamesPageable(Model model)
+	{
+		return courseNameRepository.findAll();
+	}
 		
 	
 	@GetMapping(value = "/{id}")
 	public CourseName getById(@PathVariable int id)
 	{
 		return courseNameRepository.findOne(id);
+	}
+	
+	@GetMapping(value ="/bcc")
+	public List<CourseName> getBCCCourseNames(Model model) {
+		return courseNameRepository.findByCoursetype("BCC");
 	}
 	
 	@PostMapping(value="/create")

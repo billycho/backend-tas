@@ -38,7 +38,11 @@ public class TrainingPeriodController {
 		return periodRepository.findAll();
 	}
 	
-	
+
+	@GetMapping(value="/{id}")
+	public TrainingPeriod getById(@PathVariable ("id")Integer id){
+		return periodRepository.findOne(id);
+	}
 
 	
 	@PostMapping (value = "/add")
