@@ -1,8 +1,5 @@
 package com.allnewthor.tas.domain;
 
-import java.time.LocalDate;
-import java.time.LocalTime;
-
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -11,6 +8,8 @@ import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
+
+import com.fasterxml.jackson.annotation.JsonIgnore;
 
 @Entity
 @Table (name = "courseschedule")
@@ -29,14 +28,14 @@ public class CourseSchedule {
 	private Room room;
 	
 	@Column(name="date")
-	private LocalDate date;
+	private String date;
 	
 	@Column(name="starttime")
-	private LocalTime startTime;
+	private String startTime;
 	
 	@Column(name="endtime")
-	private LocalTime endTime;
-
+	private String endTime;
+	
 	public Integer getCourseScheduleId() {
 		return courseScheduleId;
 	}
@@ -44,7 +43,8 @@ public class CourseSchedule {
 	public void setCourseScheduleId(Integer courseScheduleId) {
 		this.courseScheduleId = courseScheduleId;
 	}
-
+	
+	@JsonIgnore
 	public Course getCourse() {
 		return course;
 	}
@@ -61,27 +61,27 @@ public class CourseSchedule {
 		this.room = room;
 	}
 
-	public LocalDate getDate() {
+	public String getDate() {
 		return date;
 	}
 
-	public void setDate(LocalDate date) {
+	public void setDate(String date) {
 		this.date = date;
 	}
 
-	public LocalTime getStartTime() {
+	public String getStartTime() {
 		return startTime;
 	}
 
-	public void setStartTime(LocalTime startTime) {
+	public void setStartTime(String startTime) {
 		this.startTime = startTime;
 	}
 
-	public LocalTime getEndTime() {
+	public String getEndTime() {
 		return endTime;
 	}
 
-	public void setEndTime(LocalTime endTime) {
+	public void setEndTime(String endTime) {
 		this.endTime = endTime;
 	}
 	
