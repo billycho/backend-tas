@@ -5,8 +5,9 @@ import java.util.List;
 import java.util.Map;
 import java.util.function.Predicate;
 
-import org.json.*;
-
+import org.json.JSONArray;
+import org.json.JSONException;
+import org.json.JSONObject;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -16,7 +17,6 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.allnewthor.tas.domain.Course;
 import com.allnewthor.tas.domain.CourseParticipant;
 import com.allnewthor.tas.domain.Employee;
 import com.allnewthor.tas.domain.EmployeeRepository;
@@ -51,6 +51,7 @@ public class EmployeeController {
 	     }
 		return result;
 	}
+	
 	
 	@GetMapping (value ="/{id}")
 	public Employee getById(@PathVariable("id") Integer id){

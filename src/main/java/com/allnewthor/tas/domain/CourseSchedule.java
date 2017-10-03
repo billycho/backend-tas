@@ -43,8 +43,8 @@ public class CourseSchedule {
 	public void setCourseScheduleId(Integer courseScheduleId) {
 		this.courseScheduleId = courseScheduleId;
 	}
-	
-	
+
+	@JsonIgnore
 	public Course getCourse() {
 		return course;
 	}
@@ -80,6 +80,7 @@ public class CourseSchedule {
 	public String getEndTime() {
 		return endTime;
 	}
+
 
 	public void String(String endTime) {
 		this.endTime = endTime;
