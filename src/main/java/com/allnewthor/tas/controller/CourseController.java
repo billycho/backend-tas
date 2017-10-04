@@ -1,6 +1,8 @@
 package com.allnewthor.tas.controller;
 
 import java.util.ArrayList;
+import java.util.Calendar;
+import java.util.Date;
 import java.util.List;
 
 import org.json.JSONException;
@@ -24,6 +26,8 @@ import com.allnewthor.tas.domain.CourseSchedule;
 import com.allnewthor.tas.domain.CourseScheduleRepository;
 import com.allnewthor.tas.domain.Employee;
 import com.allnewthor.tas.domain.EmployeeRepository;
+import com.allnewthor.tas.domain.Room;
+import com.allnewthor.tas.domain.RoomRepository;
 import com.allnewthor.tas.domain.TrainingPeriod;
 import com.allnewthor.tas.domain.TrainingPeriodRepository;
 
@@ -47,6 +51,10 @@ public class CourseController {
 
 	@Autowired
 	private CourseParticipantRepository courseParticipantRepository;
+	
+	@Autowired
+	private RoomRepository roomRepository;
+	
 	@GetMapping(value="")
 	public List<Course> getAll(Model model){
 		return courseRepository.findAll();
@@ -160,13 +168,13 @@ public class CourseController {
 		TrainingPeriod period = trainingPeriodRepository.findOne(periodid);
 		List<Course> courseList = courseRepository.findBytrainingPeriod(period);
 		Course a = courseRepository.findOne(15);
-		CourseSchedule courseScheduleList1 =  courseScheduleRepository.findBycourse(a);
+		//List<CourseSchedule> courseScheduleList1 =  courseScheduleRepository.findBycourse(a);
 		List<CourseSchedule> courseScheduleList = new ArrayList<CourseSchedule>();
 		
 		for(int i = 0; i<courseList.size(); i++)
 		{
-			CourseSchedule newSchedule =  courseScheduleRepository.findBycourse(courseList.get(i));
-			courseScheduleList.add(newSchedule);
+			List<CourseSchedule> newSchedule =  courseScheduleRepository.findBycourse(courseList.get(i));
+			courseScheduleList.add(newSchedule.get(0));
 		}
 		
 		System.out.println(courseScheduleList.size());
@@ -202,5 +210,127 @@ public class CourseController {
 		
 		return 200;
 	}
+	
+	@PostMapping(value = "/{id}/addschedule" )
+	public Integer addSchedule(@PathVariable("id")Integer id,@RequestBody String body) throws JSONException 
+	{
+		JSONObject obj = new JSONObject(body);
+		
+		Integer courseId = obj.getInt("courseId");
+		Integer coursenameid = obj.getInt("coursename");
+		Integer mainTrainer = obj.getInt("mainTrainer");
+		Integer backupTrainer = obj.getInt("backupTrainer");
+		Integer room = obj.getInt("room");
+		String date = obj.getString("date");
+		Integer capacity = obj.getInt("capacity");
+		
+		TrainingPeriod trainingPeriod = trainingPeriodRepository.findOne(id);
+		
+		if(trainingPeriod.isPeriodical())
+		{
+			
+		if(courseId == -1)
+		{
+			Course newCourse = new Course();
+			Employee trainer = employeeRepository.findOne(mainTrainer);
+			Employee backup = employeeRepository.findOne(backupTrainer);
+			
+			CourseName newCourseName = courseNameRepository.findOne(coursenameid);
+			
+			newCourse.setMainTrainer(trainer);
+			newCourse.setBackUpTrainer(backup);
+			newCourse.setTrainingPeriod(trainingPeriod);
+			newCourse.setCoursename(newCourseName);
+			newCourse.setCapacity(capacity);
+			
+			courseRepository.save(newCourse);
+			
+			CourseSchedule newSchedule = new CourseSchedule();
+			
+			Room newRoom = roomRepository.findOne(room);
+			
+			newSchedule.setCourse(newCourse);
+			newSchedule.setRoom(newRoom);
+			newSchedule.setDate(date);
+			newSchedule.setStartTime("01:01:01");
+			newSchedule.setEndTime("01:01:01");
+			
+			courseScheduleRepository.save(newSchedule);
+			
+			courseId = newCourse.getCourseId();
+		}
+		else
+		{
+			
+			CourseSchedule newSchedule = new CourseSchedule();
+			
+			Room newRoom = roomRepository.findOne(room);
+			Course newCourse = courseRepository.findOne(courseId);
+			newSchedule.setCourse(newCourse);
+			newSchedule.setRoom(newRoom);
+			newSchedule.setDate(date);
+			newSchedule.setStartTime("01:01:01");
+			newSchedule.setEndTime("01:01:01");
+			
+			courseScheduleRepository.save(newSchedule);
+			
+		}
+		
+		}
+		else
+		{
+			Integer days = obj.getInt("day");
+			int noOfDays = 7; //i.e two weeks
+			Calendar calendar = Calendar.getInstance();
+			
+			
+			Course newCourse = new Course();
+			Employee trainer = employeeRepository.findOne(mainTrainer);
+			Employee backup = employeeRepository.findOne(backupTrainer);
+			
+			CourseName newCourseName = courseNameRepository.findOne(coursenameid);
+			
+			newCourse.setMainTrainer(trainer);
+			newCourse.setBackUpTrainer(backup);
+			newCourse.setTrainingPeriod(trainingPeriod);
+			newCourse.setCoursename(newCourseName);
+			newCourse.setCapacity(capacity);
+			
+			courseRepository.save(newCourse);
+			
+			for(int i = 0;i<days;i++)
+			{
+				
+				calendar.setTime(new Date(date));
+				if(i>0)
+				{
+					calendar.add(Calendar.DAY_OF_YEAR, noOfDays);
+				}
+				Date date1 = calendar.getTime();
+				
+				CourseSchedule newSchedule = new CourseSchedule();
+				
+				Room newRoom = roomRepository.findOne(room);
+				
+				newSchedule.setCourse(newCourse);
+				newSchedule.setRoom(newRoom);
+				newSchedule.setDate(date1.toLocaleString());
+				newSchedule.setStartTime("01:01:01");
+				newSchedule.setEndTime("01:01:01");
+				
+				courseScheduleRepository.save(newSchedule);
+				
+				courseId = newCourse.getCourseId();
+				
+				date = newSchedule.getDate();
+			}
+			
+		}
+		
+		
+		return courseId;
+	}
+	
+
 	
 }

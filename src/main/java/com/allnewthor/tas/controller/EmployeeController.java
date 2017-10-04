@@ -17,7 +17,9 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.allnewthor.tas.domain.Course;
 import com.allnewthor.tas.domain.CourseParticipant;
+import com.allnewthor.tas.domain.CourseParticipantRepository;
 import com.allnewthor.tas.domain.Employee;
 import com.allnewthor.tas.domain.EmployeeRepository;
 import com.allnewthor.tas.domain.Role;
@@ -31,6 +33,9 @@ public class EmployeeController {
 	
 	@Autowired
 	private RoleRepository roleRepository;
+	
+	@Autowired
+	private CourseParticipantRepository courseParticipantRepository;
 	
 	@GetMapping(value="")
 	public List<Employee> getAll(Model model){
@@ -147,4 +152,30 @@ public class EmployeeController {
 		
 		return employeeRepository.findOne(id);
 	}
+	
+	@GetMapping (value ="/{id}/enrolled")
+	public List<Course> getEnrolledCourse(@PathVariable("id") Integer id){
+		Employee employee = employeeRepository.findOne(id);
+		List<Course> courseList = new ArrayList<Course>();
+		System.out.println(courseParticipantRepository.count());
+		for(int i = 0;i<courseParticipantRepository.findByemployee(employee).size();i++)
+		{
+			courseList.add(courseParticipantRepository.findByemployee(employee).get(i).getCourse());
+		}
+		return courseList;
+	}
+	
+	@GetMapping (value ="/{id}/enrolledstatus")
+	public List<Boolean> getEnrolledStatus(@PathVariable("id") Integer id){
+		Employee employee = employeeRepository.findOne(id);
+		List<Boolean> status = new ArrayList<Boolean>();
+		System.out.println(courseParticipantRepository.count());
+		for(int i = 0;i<courseParticipantRepository.findByemployee(employee).size();i++)
+		{
+			status.add(courseParticipantRepository.findByemployee(employee).get(i).getPass());
+	
+		}
+		return status;
+	}
+	
 }

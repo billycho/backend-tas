@@ -44,7 +44,7 @@ public class CourseSchedule {
 		this.courseScheduleId = courseScheduleId;
 	}
 
-	@JsonIgnore
+	
 	public Course getCourse() {
 		return course;
 	}
@@ -82,7 +82,7 @@ public class CourseSchedule {
 	}
 
 
-	public void String(String endTime) {
+	public void setEndTime(String endTime) {
 		this.endTime = endTime;
 	}
 	
