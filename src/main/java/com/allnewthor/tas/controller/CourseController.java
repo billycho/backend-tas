@@ -166,14 +166,21 @@ public class CourseController {
 	public List<CourseSchedule> getCourse(@PathVariable("id")Integer periodid) {
 		
 		TrainingPeriod period = trainingPeriodRepository.findOne(periodid);
+		
 		List<Course> courseList = courseRepository.findBytrainingPeriod(period);
-		Course a = courseRepository.findOne(15);
+		
+		
+		
+		//Course a = courseRepository.findOne(15);
 		//List<CourseSchedule> courseScheduleList1 =  courseScheduleRepository.findBycourse(a);
 		List<CourseSchedule> courseScheduleList = new ArrayList<CourseSchedule>();
 		
 		for(int i = 0; i<courseList.size(); i++)
 		{
 			List<CourseSchedule> newSchedule =  courseScheduleRepository.findBycourse(courseList.get(i));
+			System.out.println(courseList.get(i).getCourseId());
+			
+			if(newSchedule.size()>0)
 			courseScheduleList.add(newSchedule.get(0));
 		}
 		

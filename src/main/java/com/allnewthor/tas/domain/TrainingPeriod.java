@@ -52,7 +52,18 @@ public class TrainingPeriod {
 @Column(name = "openenrollment")
  private boolean openenrollment;
   
-  public TrainingPeriod() {
+@Column(name = "active")
+private boolean active;
+
+  public boolean isActive() {
+	return active;
+}
+
+public void setActive(boolean active) {
+	this.active = active;
+}
+
+public TrainingPeriod() {
 	  super();
   }
   
