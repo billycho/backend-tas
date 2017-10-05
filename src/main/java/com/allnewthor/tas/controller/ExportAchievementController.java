@@ -16,7 +16,7 @@ import com.allnewthor.tas.domain.ExportAchievement;
 @RequestMapping("/downloads")
 public class ExportAchievementController {
 	@Autowired
-	 private CourseParticipantRepository courseParticipantRepository;
+	private CourseParticipantRepository courseParticipantRepository;
 	
        @GetMapping(value="/achievement")
        public ModelAndView getExcel(){

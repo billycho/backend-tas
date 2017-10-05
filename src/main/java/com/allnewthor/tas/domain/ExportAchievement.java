@@ -56,10 +56,10 @@ public class ExportAchievement extends AbstractXlsView{
 		 row.createCell(9).setCellValue(courseParticipantList.get(i).getCourse().getTrainingPeriod().getEndDate());
 		 row.createCell(10).setCellValue(courseParticipantList.get(i).getCourse().getMainTrainer().getFullname());
 		 
-		 if(courseParticipantList.get(i).getPass()==true) {
-			 row.createCell(11).setCellValue("Passed");
-		 }else if(courseParticipantList.get(i).getPass()==null) {
+		 if(courseParticipantList.get(i).getPass()==null) {
 			 row.createCell(11).setCellValue("In Progress");
+		 }else if(courseParticipantList.get(i).getPass()==true) {
+			 row.createCell(11).setCellValue("Passed");
 		 }else if(courseParticipantList.get(i).getPass()==false) {
 			 row.createCell(11).setCellValue("Failed");
 		 }
