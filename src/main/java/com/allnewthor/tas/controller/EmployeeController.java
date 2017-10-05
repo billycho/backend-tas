@@ -147,4 +147,25 @@ public class EmployeeController {
 		
 		return employeeRepository.findOne(id);
 	}
+	
+	@PostMapping (value="/update/achievement")
+	public List<CourseParticipant> updateAchievement(
+			@RequestBody List<CourseParticipant> courseParticipants
+			){
+		Employee employee = new Employee();
+		employee =courseParticipants.get(0).getEmployee();
+		employee.setCourseParticipant(courseParticipants);
+		
+//		for(int i=0; i <courseParticipants.size(); i++) {
+//			for(int j=0; j< employee.getCourseParticipant().size(); j++) {
+//				if (courseParticipants.get(i).getPass()!=employee.getCourseParticipant().get(j).getPass()) {
+//					courseParticipants.get(i).setPass(employee.getCourseParticipant().get(j).getPass());
+//				}
+//			}
+//		}
+		this.employeeRepository.save(employee);
+		
+		return getCourses(employee.getEmployeeId());
+		
+	}
 }
