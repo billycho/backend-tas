@@ -34,7 +34,7 @@ public class LoginController {
 		employee = employeeRepository.findByAccountName(loginRequest.getUsername());
 		
 	
-		System.out.println(encrpyt(loginRequest.getPassword() + employee.getSalt()));
+//		System.out.println(encrpyt(loginRequest.getPassword() + employee.getSalt()));
 		
 		List<Employee> e = employeeRepository.findAll();
 		
