@@ -221,17 +221,24 @@ public class TrainingPeriodController {
 		List<CourseSchedule> activeSchedule = new ArrayList<CourseSchedule>();
 		SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
 		
+		
 		for(int i = 0;i<periods.size();i++)
 		{
 			
 			if(isDateInBetweenIncludingEndPoints(new Date(sdf.parse(periods.get(i).getStartDate()).getTime()), new Date(sdf.parse(periods.get(i).getEndDate()).getTime()), new Date()))
 			{
 				activePeriods.add(periods.get(i));
+			
 				List<Course> newcourses = courseRepository.findBytrainingPeriod(periods.get(i));
 				for(int j = 0;j<newcourses.size();j++)
 				{
+				
 					List<CourseSchedule> listSchedule = scheduleRepository.findBycourse(newcourses.get(j));
+
+					
+					if(listSchedule.size()>0)
 					activeSchedule.add(listSchedule.get(0));
+					
 					activeCourse.add(newcourses.get(j));
 				}
 			}
